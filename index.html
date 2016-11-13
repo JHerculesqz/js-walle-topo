@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>人脸识别</title>
+    <script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/facepp-sdk.min.js"></script>
+    <script type="text/javascript" src="js/FaceUtils.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            faceUtils.init('b747924b56a9a2300e34991fe268bf6c', 'Qp9m3JqZfOkxx7G6Rr5hmZS_Osm_sUIn ');
+            $("#btnDetect").click(function(){
+                faceUtils.detect($("#imgImgUrl").attr("src"), function(result){
+                    $("#divRes").text(JSON.stringify(result));
+                    console.log(result);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <img id="imgImgUrl" src="http://images.dayoo.com/life/attachement/jpg/site1/20110125/001372af5a290ea8897520.jpg">
+    <button id="btnDetect">人脸识别</button>
+    <div id="divRes"></div>
+</body>
+</html>
