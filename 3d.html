@@ -562,12 +562,23 @@
             });
 
             $("#btnGesture").click(function(){
+				var arrleftHandData1 = [10, 20, 30, 40 ,50];
+				var arrleftHandData2 = [60, 70, 80, 90, 100];
+                var arrRightHandData1 = [-5, -10, -15, -20 ,-25, -30];
+                var arrRightHandData2 = [-35, -40, -45, -50, -55, -60];
                 leapUtils.init(function (strHandType, strHandId, strHandRoll) {
-                    if(strHandType == "left"){
+					$("#textGesture").html(strHandRoll);
+                    if(strHandType == "left" && -1 != $.inArray(strHandRoll, arrleftHandData1)){
                         CTopo.Api.bgDragBy3rd("RIGHT");
                     }
-                    else{
+					else if(strHandType == "left" && -1 != $.inArray(strHandRoll, arrleftHandData2)){
+                        CTopo.Api.bgDragBy3rd("LEFT");
+                    }
+                    else if(strHandType == "right"  && -1 != $.inArray(strHandRoll, arrRightHandData1)){
                         CTopo.Api.zoomBy3rd("ZOOM_OUT");
+                    }
+                    else if(strHandType == "right"  && -1 != $.inArray(strHandRoll, arrRightHandData2)){
+                        CTopo.Api.zoomBy3rd("ZOOM_IN");
                     }
                 });
             });
@@ -576,6 +587,7 @@
 </head>
 <body style="margin: 0px;background-color: #bbbbbb;overflow: hidden">
     <button id="btnGesture">gesture</button>
+	<div id="textGesture"></div>
     <!--<button id="bgDragBy3rd">bgDragBy3rd</button>-->
     <!--<button id="zoomBy3rd">zoomBy3rd</button>-->
     <div id="topoContainer" style="width: 100%;height:100%;background-image: url('image/bg5.png');background-repeat: no-repeat;background-size: cover;"</div>
