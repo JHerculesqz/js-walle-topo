@@ -59,7 +59,7 @@
             if(m_oDomEvent){
                 m_oDomEvent.destroy();
             }
-            var m_oDomEvent = new THREEx.DomEvents(oCamera, oRenderer.domElement);
+            m_oDomEvent = new THREEx.DomEvents(oCamera, oRenderer.domElement);
 
             for(var i = 0; i < arrNodes.length; i++){
                _initEvent4Node(m_oDomEvent, arrNodes[i]);

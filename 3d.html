@@ -27,7 +27,7 @@
             //init
             var CTopo = new $.CTopo();
             var arrImg = [
-                "image/test.jpg", "image/attach.png"
+                "image/node_blue","image/node_green","image/node_yellow"
             ];
             CTopo.init("topoContainer",arrImg);
 
@@ -491,14 +491,15 @@
                     uiImgD:20,
                     isSelect:false,
                     uiLabel:"",
-                    uiImgPath:"image/test.jpg"
+                    uiImgPath:"image/node_blue"
                 };
                 return oParams;
             }
             function _generateLink4L3(){
                 var oParams = {
-                    uiLinkWidth:10,
-                    uiLinkColor:"blue"
+                    uiLinkWidth:1,
+                    uiLinkColor:"#2a70ff",
+                    uiRealLine:true
                 };
                 return oParams;
             }
@@ -509,14 +510,15 @@
                     uiImgD:20,
                     isSelect:false,
                     uiLabel:"",
-                    uiImgPath:"image/test.jpg"
+                    uiImgPath:"image/node_green"
                 };
                 return oParams;
             }
             function _generateLink4L2(){
                 var oParams = {
-                    uiLinkWidth:10,
-                    uiLinkColor:"yellow"
+                    uiLinkWidth:1,
+                    uiLinkColor:"#ffd800",
+                    uiRealLine:true
                 };
                 return oParams;
             }
@@ -527,28 +529,31 @@
                     uiImgD:20,
                     isSelect:false,
                     uiLabel:"",
-                    uiImgPath:"image/test.jpg"
+                    uiImgPath:"image/node_yellow"
                 };
                 return oParams;
             }
             function _generateLink4Phy(){
                 var oParams = {
-                    uiLinkWidth:10,
-                    uiLinkColor:"#878787"
+                    uiLinkWidth:1,
+                    uiLinkColor:"#00ec85",
+                    uiRealLine:true
                 };
                 return oParams;
             }
             function _generateLink4L3L2(){
                 var oParams = {
-                    uiLinkWidth:10,
-                    uiLinkColor:"red"
+                    uiLinkWidth:1,
+                    uiLinkColor:"#eca100",
+                    uiRealLine:false
                 };
                 return oParams;
             }
             function _generateLink4L2Phy(){
                 var oParams = {
-                    uiLinkWidth:10,
-                    uiLinkColor:"green"
+                    uiLinkWidth:1,
+                    uiLinkColor:"#00ec85",
+                    uiRealLine:false
                 };
                 return oParams;
             }

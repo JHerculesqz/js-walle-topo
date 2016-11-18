@@ -8,7 +8,14 @@
 
         this.initLight = function(oScene){
             var light = new THREE.AmbientLight(0xffffff);
-            oScene.add(light)
+            oScene.add(light);
+
+            var spotLight = new THREE.SpotLight(0xffffff);
+            spotLight.position.set(1000,1000,1000);
+            spotLight.castShadow = true;
+            spotLight.intensity = 2;
+            spotLight.distance = 5000;
+            oScene.add(spotLight);
         }
     }
 })(jQuery);

@@ -41,10 +41,22 @@
             var oGeometry = new THREE.Geometry();
             oGeometry.vertices.push(oSrcNodePos);
             oGeometry.vertices.push(oDstNodePos);
-            var oLine4Mesh = new THREE.Line(oGeometry, new THREE.LineBasicMaterial({
-                color:oLink.params.uiLinkColor,
-                linewidth:oLink.params.uiLinkWidth
-            }), THREE.LineSegments);
+            var oLine4Mesh = undefined;
+            if(oLink.params.uiRealLine){
+                oLine4Mesh = new THREE.Line(oGeometry, new THREE.LineBasicMaterial({
+                    color:oLink.params.uiLinkColor,
+                    linewidth:oLink.params.uiLinkWidth
+                }), THREE.LineSegments);
+            }
+            else{
+                oGeometry.computeLineDistances();
+                oLine4Mesh = new THREE.Line(oGeometry, new THREE.LineDashedMaterial({
+                    color:oLink.params.uiLinkColor,
+                    linewidth:oLink.params.uiLinkWidth,
+                    dashSize:10,
+                    gapSize:5
+                }), THREE.LineSegments);
+            }
             oScene.add(oLine4Mesh);
             arrLinkRes.push(oLine4Mesh);
             oLine4Mesh.name = oLink.name;

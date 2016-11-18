@@ -32,10 +32,10 @@
 
         this.bgDragBy3rd = function(strDragType){
             if(strDragType == "LEFT"){
-                m_oParent.DB.bgDragBy3rd(-m_iDefaultOffsetX4Drag, m_iDefaultOffsetY4Drag, m_iDefaultOffsetZ4Zoom);
+                m_oParent.DB.bgDragBy3rd(-m_iDefaultOffsetX4Drag, m_iDefaultOffsetY4Drag, m_iDefaultOffsetZ4Drag);
             }
             else if(strDragType == "RIGHT"){
-                m_oParent.DB.bgDragBy3rd(m_iDefaultOffsetX4Drag, m_iDefaultOffsetY4Drag, m_iDefaultOffsetZ4Zoom);
+                m_oParent.DB.bgDragBy3rd(m_iDefaultOffsetX4Drag, m_iDefaultOffsetY4Drag, m_iDefaultOffsetZ4Drag);
             }
         };
 
