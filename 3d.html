@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="lib/leap-0.6.4.min.js"></script>
+    <script type="text/javascript" src="js/gesture/LeapUtils.js"></script>
+    <script type="text/javascript" src="lib/three.js"></script>
+    <script type="text/javascript" src="lib/OBJLoader.js"></script>
+    <script type="text/javascript" src="lib/MTLLoader.js"></script>
+    <script type="text/javascript" src="lib/threex.domevents.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/keyboard.js"></script>
+    <script type="text/javascript" src="js/3d/util/topo_utils.js"></script>
+    <script type="text/javascript" src="js/3d/camera/topo_camera.js"></script>
+    <script type="text/javascript" src="js/3d/scene/topo_scene.js"></script>
+    <script type="text/javascript" src="js/3d/renderer/topo_renderer.js"></script>
+    <script type="text/javascript" src="js/3d/node/topo_node.js"></script>
+    <script type="text/javascript" src="js/3d/link/topo_link.js"></script>
+    <script type="text/javascript" src="js/3d/event/topo_event.js"></script>
+    <script type="text/javascript" src="js/3d/light/topo_light.js"></script>
+    <script type="text/javascript" src="js/3d/db/topo_db.js"></script>
+    <script type="text/javascript" src="js/3d/api/topo_api.js"></script>
+    <script type="text/javascript" src="js/3d/topo.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //init
+            var CTopo = new $.CTopo();
+            var arrImg = [
+                "image/test.jpg", "image/attach.png"
+            ];
+            CTopo.init("topoContainer",arrImg);
+
+            var arrNodes = [];
+            var arrLinks = [];
+            //构造L3Nodes/L3Links
+            for(var i = 0; i < 11; i++){
+                var oNode = {
+                    name:"node" + i,
+                    params:_generateNode4L3()
+                };
+                if(i == 0){
+                    oNode.params.x = -150;
+                    oNode.params.y = 150;
+                    oNode.params.z = -150;
+                }
+                else if(i == 1){
+                    oNode.params.x = -150;
+                    oNode.params.y = 150;
+                    oNode.params.z = 0;
+                }
+                else if(i == 2){
+                    oNode.params.x = -150;
+                    oNode.params.y = 150;
+                    oNode.params.z = 150;
+                }
+                else if(i == 3){
+                    oNode.params.x = -100;
+                    oNode.params.y = 150;
+                    oNode.params.z = -100;
+                }
+                else if(i == 4){
+                    oNode.params.x = -100;
+                    oNode.params.y = 150;
+                    oNode.params.z = 100;
+                }
+                else if(i == 5){
+                    oNode.params.x = 0;
+                    oNode.params.y = 150;
+                    oNode.params.z = 0;
+                }
+                else if(i == 6){
+                    oNode.params.x = 100;
+                    oNode.params.y = 150;
+                    oNode.params.z = -100;
+                }
+                else if(i == 7){
+                    oNode.params.x = 100;
+                    oNode.params.y = 150;
+                    oNode.params.z = 100;
+                }
+                else if(i == 8){
+                    oNode.params.x = 150;
+                    oNode.params.y = 150;
+                    oNode.params.z = -150;
+                }
+                else if(i == 9){
+                    oNode.params.x = 150;
+                    oNode.params.y = 150;
+                    oNode.params.z = 0;
+                }
+                else if(i == 10){
+                    oNode.params.x = 150;
+                    oNode.params.y = 150;
+                    oNode.params.z = 150;
+                }
+                arrNodes.push(oNode);
+            }
+            for(i = 0; i < 14; i++){
+                var oLink = {
+                    name:"link" + i,
+                    params:_generateLink4L3()
+                };
+                if(i == 0){
+                    oLink.params.srcNodeName = "node0";
+                    oLink.params.dstNodeName = "node1";
+                }
+                else if(i == 1){
+                    oLink.params.srcNodeName = "node1";
+                    oLink.params.dstNodeName = "node2";
+                }
+                else if(i == 2){
+                    oLink.params.srcNodeName = "node0";
+                    oLink.params.dstNodeName = "node3";
+                }
+                else if(i == 3){
+                    oLink.params.srcNodeName = "node2";
+                    oLink.params.dstNodeName = "node4";
+                }
+                else if(i == 4){
+                    oLink.params.srcNodeName = "node3";
+                    oLink.params.dstNodeName = "node4";
+                }
+                else if(i == 5){
+                    oLink.params.srcNodeName = "node3";
+                    oLink.params.dstNodeName = "node5";
+                }
+                else if(i == 6){
+                    oLink.params.srcNodeName = "node4";
+                    oLink.params.dstNodeName = "node5";
+                }
+                else if(i == 7){
+                    oLink.params.srcNodeName = "node5";
+                    oLink.params.dstNodeName = "node6";
+                }
+                else if(i == 8){
+                    oLink.params.srcNodeName = "node5";
+                    oLink.params.dstNodeName = "node7";
+                }
+                else if(i == 9){
+                    oLink.params.srcNodeName = "node6";
+                    oLink.params.dstNodeName = "node8";
+                }
+                else if(i == 10){
+                    oLink.params.srcNodeName = "node6";
+                    oLink.params.dstNodeName = "node9";
+                }
+                else if(i == 11){
+                    oLink.params.srcNodeName = "node7";
+                    oLink.params.dstNodeName = "node10";
+                }
+                else if(i == 12){
+                    oLink.params.srcNodeName = "node8";
+                    oLink.params.dstNodeName = "node9";
+                }
+                else if(i == 13){
+                    oLink.params.srcNodeName = "node9";
+                    oLink.params.dstNodeName = "node10";
+                }
+                arrLinks.push(oLink);
+            }
+
+            //构造L2Nodes/构造L2Links
+            for(i = 11; i < 22; i++){
+                var oNode = {
+                    name:"node" + i,
+                    params:_generateNode4L2()
+                };
+                if(i == 11){
+                    oNode.params.x = -150;
+                    oNode.params.y = 0;
+                    oNode.params.z = -150;
+                }
+                else if(i == 12){
+                    oNode.params.x = -150;
+                    oNode.params.y = 0;
+                    oNode.params.z = 0;
+                }
+                else if(i == 13){
+                    oNode.params.x = -150;
+                    oNode.params.y = 0;
+                    oNode.params.z = 150;
+                }
+                else if(i == 14){
+                    oNode.params.x = -100;
+                    oNode.params.y = 0;
+                    oNode.params.z = -100;
+                }
+                else if(i == 15){
+                    oNode.params.x = -100;
+                    oNode.params.y = 0;
+                    oNode.params.z = 100;
+                }
+                else if(i == 16){
+                    oNode.params.x = 0;
+                    oNode.params.y = 0;
+                    oNode.params.z = 0;
+                }
+                else if(i == 17){
+                    oNode.params.x = 100;
+                    oNode.params.y = 0;
+                    oNode.params.z = -100;
+                }
+                else if(i == 18){
+                    oNode.params.x = 100;
+                    oNode.params.y = 0;
+                    oNode.params.z = 100;
+                }
+                else if(i == 19){
+                    oNode.params.x = 150;
+                    oNode.params.y = 0;
+                    oNode.params.z = -150;
+                }
+                else if(i == 20){
+                    oNode.params.x = 150;
+                    oNode.params.y = 0;
+                    oNode.params.z = 0;
+                }
+                else if(i == 21){
+                    oNode.params.x = 150;
+                    oNode.params.y = 0;
+                    oNode.params.z = 150;
+                }
+                arrNodes.push(oNode);
+            }
+            for(i = 14; i < 28; i++){
+                var oLink = {
+                    name:"link" + i,
+                    params:_generateLink4L2()
+                };
+                if(i == 14){
+                    oLink.params.srcNodeName = "node11";
+                    oLink.params.dstNodeName = "node12";
+                }
+                else if(i == 15){
+                    oLink.params.srcNodeName = "node12";
+                    oLink.params.dstNodeName = "node13";
+                }
+                else if(i == 16){
+                    oLink.params.srcNodeName = "node11";
+                    oLink.params.dstNodeName = "node14";
+                }
+                else if(i == 17){
+                    oLink.params.srcNodeName = "node13";
+                    oLink.params.dstNodeName = "node15";
+                }
+                else if(i == 18){
+                    oLink.params.srcNodeName = "node14";
+                    oLink.params.dstNodeName = "node15";
+                }
+                else if(i == 19){
+                    oLink.params.srcNodeName = "node14";
+                    oLink.params.dstNodeName = "node16";
+                }
+                else if(i == 20){
+                    oLink.params.srcNodeName = "node15";
+                    oLink.params.dstNodeName = "node16";
+                }
+                else if(i == 21){
+                    oLink.params.srcNodeName = "node16";
+                    oLink.params.dstNodeName = "node17";
+                }
+                else if(i == 22){
+                    oLink.params.srcNodeName = "node16";
+                    oLink.params.dstNodeName = "node18";
+                }
+                else if(i == 23){
+                    oLink.params.srcNodeName = "node17";
+                    oLink.params.dstNodeName = "node19";
+                }
+                else if(i == 24){
+                    oLink.params.srcNodeName = "node17";
+                    oLink.params.dstNodeName = "node20";
+                }
+                else if(i == 25){
+                    oLink.params.srcNodeName = "node18";
+                    oLink.params.dstNodeName = "node21";
+                }
+                else if(i == 26){
+                    oLink.params.srcNodeName = "node19";
+                    oLink.params.dstNodeName = "node20";
+                }
+                else if(i == 27){
+                    oLink.params.srcNodeName = "node20";
+                    oLink.params.dstNodeName = "node21";
+                }
+                arrLinks.push(oLink);
+            }
+
+            //构造PhyNodes/构造PhyLinks
+            for(i = 22; i < 33; i++){
+                var oNode = {
+                    name:"node" + i,
+                    params:_generateNode4Phy()
+                };
+                if(i == 22){
+                    oNode.params.x = -150;
+                    oNode.params.y = -150;
+                    oNode.params.z = -150;
+                }
+                else if(i == 23){
+                    oNode.params.x = -150;
+                    oNode.params.y = -150;
+                    oNode.params.z = 0;
+                }
+                else if(i == 24){
+                    oNode.params.x = -150;
+                    oNode.params.y = -150;
+                    oNode.params.z = 150;
+                }
+                else if(i == 25){
+                    oNode.params.x = -100;
+                    oNode.params.y = -150;
+                    oNode.params.z = -100;
+                }
+                else if(i == 26){
+                    oNode.params.x = -100;
+                    oNode.params.y = -150;
+                    oNode.params.z = 100;
+                }
+                else if(i == 27){
+                    oNode.params.x = 0;
+                    oNode.params.y = -150;
+                    oNode.params.z = 0;
+                }
+                else if(i == 28){
+                    oNode.params.x = 100;
+                    oNode.params.y = -150;
+                    oNode.params.z = -100;
+                }
+                else if(i == 29){
+                    oNode.params.x = 100;
+                    oNode.params.y = -150;
+                    oNode.params.z = 100;
+                }
+                else if(i == 30){
+                    oNode.params.x = 150;
+                    oNode.params.y = -150;
+                    oNode.params.z = -150;
+                }
+                else if(i == 31){
+                    oNode.params.x = 150;
+                    oNode.params.y = -150;
+                    oNode.params.z = 0;
+                }
+                else if(i == 32){
+                    oNode.params.x = 150;
+                    oNode.params.y = -150;
+                    oNode.params.z = 150;
+                }
+                arrNodes.push(oNode);
+            }
+            for(i = 28; i < 42; i++){
+                var oLink = {
+                    name:"link" + i,
+                    params:_generateLink4Phy()
+                };
+                if(i == 28){
+                    oLink.params.srcNodeName = "node22";
+                    oLink.params.dstNodeName = "node23";
+                }
+                else if(i == 29){
+                    oLink.params.srcNodeName = "node23";
+                    oLink.params.dstNodeName = "node24";
+                }
+                else if(i == 30){
+                    oLink.params.srcNodeName = "node22";
+                    oLink.params.dstNodeName = "node25";
+                }
+                else if(i == 31){
+                    oLink.params.srcNodeName = "node24";
+                    oLink.params.dstNodeName = "node26";
+                }
+                else if(i == 32){
+                    oLink.params.srcNodeName = "node25";
+                    oLink.params.dstNodeName = "node26";
+                }
+                else if(i == 33){
+                    oLink.params.srcNodeName = "node25";
+                    oLink.params.dstNodeName = "node27";
+                }
+                else if(i == 34){
+                    oLink.params.srcNodeName = "node26";
+                    oLink.params.dstNodeName = "node27";
+                }
+                else if(i == 35){
+                    oLink.params.srcNodeName = "node27";
+                    oLink.params.dstNodeName = "node28";
+                }
+                else if(i == 36){
+                    oLink.params.srcNodeName = "node27";
+                    oLink.params.dstNodeName = "node29";
+                }
+                else if(i == 37){
+                    oLink.params.srcNodeName = "node28";
+                    oLink.params.dstNodeName = "node30";
+                }
+                else if(i == 38){
+                    oLink.params.srcNodeName = "node28";
+                    oLink.params.dstNodeName = "node31";
+                }
+                else if(i == 39){
+                    oLink.params.srcNodeName = "node29";
+                    oLink.params.dstNodeName = "node32";
+                }
+                else if(i == 40){
+                    oLink.params.srcNodeName = "node30";
+                    oLink.params.dstNodeName = "node31";
+                }
+                else if(i == 41){
+                    oLink.params.srcNodeName = "node31";
+                    oLink.params.dstNodeName = "node32";
+                }
+                arrLinks.push(oLink);
+            }
+
+            //构造L3-L2
+            for(i = 42; i < 48; i++){
+                var oLink = {
+                    name:"link" + i,
+                    params:_generateLink4L3L2()
+                };
+                if(i == 42){
+                    oLink.params.srcNodeName = "node0";
+                    oLink.params.dstNodeName = "node11";
+                }
+                else if(i == 43){
+                    oLink.params.srcNodeName = "node1";
+                    oLink.params.dstNodeName = "node12";
+                }
+                else if(i == 44){
+                    oLink.params.srcNodeName = "node2";
+                    oLink.params.dstNodeName = "node13";
+                }
+                else if(i == 45){
+                    oLink.params.srcNodeName = "node8";
+                    oLink.params.dstNodeName = "node19";
+                }
+                else if(i == 46){
+                    oLink.params.srcNodeName = "node9";
+                    oLink.params.dstNodeName = "node20";
+                }
+                else if(i == 47){
+                    oLink.params.srcNodeName = "node10";
+                    oLink.params.dstNodeName = "node21";
+                }
+                arrLinks.push(oLink);
+            }
+            //构造L2-Phy
+            for(i = 48; i < 54; i++){
+                var oLink = {
+                    name:"link" + i,
+                    params:_generateLink4L2Phy()
+                };
+                if(i == 48){
+                    oLink.params.srcNodeName = "node22";
+                    oLink.params.dstNodeName = "node11";
+                }
+                else if(i == 49){
+                    oLink.params.srcNodeName = "node23";
+                    oLink.params.dstNodeName = "node12";
+                }
+                else if(i == 50){
+                    oLink.params.srcNodeName = "node24";
+                    oLink.params.dstNodeName = "node13";
+                }
+                else if(i == 51){
+                    oLink.params.srcNodeName = "node30";
+                    oLink.params.dstNodeName = "node19";
+                }
+                else if(i == 52){
+                    oLink.params.srcNodeName = "node31";
+                    oLink.params.dstNodeName = "node20";
+                }
+                else if(i == 53){
+                    oLink.params.srcNodeName = "node32";
+                    oLink.params.dstNodeName = "node21";
+                }
+                arrLinks.push(oLink);
+            }
+
+            // draw
+            setTimeout(function(){
+                CTopo.draw(arrNodes, arrLinks);
+            }, 2000);
+
+            function _generateNode4L3(){
+                var oParams = {
+                    uiImgW:20,
+                    uiImgH:20,
+                    uiImgD:20,
+                    isSelect:false,
+                    uiLabel:"",
+                    uiImgPath:"image/test.jpg"
+                };
+                return oParams;
+            }
+            function _generateLink4L3(){
+                var oParams = {
+                    uiLinkWidth:10,
+                    uiLinkColor:"blue"
+                };
+                return oParams;
+            }
+            function _generateNode4L2(){
+                var oParams = {
+                    uiImgW:20,
+                    uiImgH:20,
+                    uiImgD:20,
+                    isSelect:false,
+                    uiLabel:"",
+                    uiImgPath:"image/test.jpg"
+                };
+                return oParams;
+            }
+            function _generateLink4L2(){
+                var oParams = {
+                    uiLinkWidth:10,
+                    uiLinkColor:"yellow"
+                };
+                return oParams;
+            }
+            function _generateNode4Phy(){
+                var oParams = {
+                    uiImgW:20,
+                    uiImgH:20,
+                    uiImgD:20,
+                    isSelect:false,
+                    uiLabel:"",
+                    uiImgPath:"image/test.jpg"
+                };
+                return oParams;
+            }
+            function _generateLink4Phy(){
+                var oParams = {
+                    uiLinkWidth:10,
+                    uiLinkColor:"#878787"
+                };
+                return oParams;
+            }
+            function _generateLink4L3L2(){
+                var oParams = {
+                    uiLinkWidth:10,
+                    uiLinkColor:"red"
+                };
+                return oParams;
+            }
+            function _generateLink4L2Phy(){
+                var oParams = {
+                    uiLinkWidth:10,
+                    uiLinkColor:"green"
+                };
+                return oParams;
+            }
+
+            $("#bgDragBy3rd").click(function(){
+                CTopo.Api.bgDragBy3rd("RIGHT");
+            });
+
+            $("#zoomBy3rd").click(function(){
+                CTopo.Api.zoomBy3rd("ZOOM_OUT");
+            });
+
+            $("#btnGesture").click(function(){
+                leapUtils.init(function (strHandType, strHandId, strHandRoll) {
+                    if(strHandType == "left"){
+                        CTopo.Api.bgDragBy3rd("RIGHT");
+                    }
+                    else{
+                        CTopo.Api.zoomBy3rd("ZOOM_OUT");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body style="margin: 0px;background-color: #bbbbbb;overflow: hidden">
+    <button id="btnGesture">gesture</button>
+    <!--<button id="bgDragBy3rd">bgDragBy3rd</button>-->
+    <!--<button id="zoomBy3rd">zoomBy3rd</button>-->
+    <div id="topoContainer" style="width: 100%;height:100%;background-image: url('image/bg5.png');background-repeat: no-repeat;background-size: cover;"</div>
+</body>
+</html>
