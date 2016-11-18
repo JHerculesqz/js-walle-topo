@@ -6,7 +6,7 @@
         var self = this;
         var WIDGET_NAME = "CTopoCamera";
         this.initCamera = function(){
-            var oCamera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight,1,1000);
+            var oCamera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight,2,1000);
             oCamera.position.z = 500;
             return oCamera;
         }

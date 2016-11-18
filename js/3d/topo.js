@@ -81,9 +81,15 @@
         //region _regImg
 
         var _regImg = function(strImgPath){
-            var loader = new THREE.TextureLoader();
-            loader.load(strImgPath, function(oTexture){
-                self.m_oDicImg[strImgPath] = oTexture;
+            //var loader = new THREE.TextureLoader();
+            //loader.load(strImgPath, function(oTexture){
+            //    self.m_oDicImg[strImgPath] = oTexture;
+            //});
+
+            var oMtlLoader = new THREE.MTLLoader();
+            oMtlLoader.load(strImgPath + '.mtl', function(oMaterials){
+                oMaterials.preload();
+                self.m_oDicImg[strImgPath] = oMaterials;
             });
         };
 

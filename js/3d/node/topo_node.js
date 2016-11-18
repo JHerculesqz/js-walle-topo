@@ -10,50 +10,37 @@
             var arrNodeRes = [];
             for(var i = 0; i < arrNodes.length;i++){
                 var oNode = arrNodes[i];
-                _generateNode(oScene,oDicImg, oNode, arrNodeRes);
+                _generateNode(oScene,oDicImg, oNode, arrNodes, arrNodeRes, oAfterLoadNode);
             }
-            //var oMtlLoader = new THREE.MTLLoader();
-            //oMtlLoader.setPath('image/');
-            //oMtlLoader.load('panel.mtl', function(oMaterials){
-            //    oMaterials.preload();
-            //    var oObjLoader = new THREE.OBJLoader();
-            //    oObjLoader.setMaterials(oMaterials);
-            //    oObjLoader.setPath('image/');
-            //    oObjLoader.load('panel.obj', function(oMesh){
-            //        oMesh.scale.x = 5;
-            //        oMesh.scale.y = 0.5;
-            //        oMesh.scale.z = 2;
-            //        oMesh.position.x = 0;
-            //        oMesh.position.y = 0;
-            //        oMesh.position.z = 0;
-            //        oScene.add(oMesh);
-            //    });
-            //});
-
-            oAfterLoadNode(arrNodeRes);
         };
 
-        var  _generateNode = function(oScene, oDicImg,  oNode, arrNodeRes){
+        var  _generateNode = function(oScene, oDicImg,  oNode, arrNodes, arrNodeRes, oAfterLoadNode){
             //1.addNode
-            var oGeometry = new THREE.SphereGeometry(oNode.params.uiImgW,oNode.params.uiImgH,oNode.params.uiImgD);
-            var oMaterial = new THREE.MeshBasicMaterial({map:oDicImg[oNode.params.uiImgPath],overdraw:0.5});
-            var oMesh4Node = new THREE.Mesh(oGeometry, oMaterial);
-            oMesh4Node.position.x = oNode.params.x;
-            oMesh4Node.position.y = oNode.params.y;
-            oMesh4Node.position.z = oNode.params.z;
-            oMesh4Node.name = oNode.name;
-            oScene.add(oMesh4Node);
-            arrNodeRes.push(oMesh4Node);
+            var oObjLoader = new THREE.OBJLoader();
+            oObjLoader.setMaterials(oDicImg[oNode.params.uiImgPath]);
+            oObjLoader.load(oNode.params.uiImgPath + '.obj', function(oMesh4Node){
+                oMesh4Node.position.x = oNode.params.x;
+                oMesh4Node.position.y = oNode.params.y;
+                oMesh4Node.position.z = oNode.params.z;
+                oMesh4Node.name = oNode.name;
+                oScene.add(oMesh4Node);
+                arrNodeRes.push(oMesh4Node);
 
-            //2.addNodeLabel
-            _addNodeSelectStyle(oScene, oNode, oMesh4Node, oGeometry);
+                //2.addNodeLabel
+                _addNodeSelectStyle(oScene, oNode, oMesh4Node, null);
 
-            //3.addNodeLabel
-            _addNodeLabel(oScene, oNode);
+                //3.addNodeLabel
+                _addNodeLabel(oScene, oNode);
 
-            //4.addNodeAttach
-            _addNodeAttach(oScene, oDicImg, oNode);
+                //4.addNodeAttach
+                _addNodeAttach(oScene, oDicImg, oNode);
+
+                if(arrNodes.length == arrNodeRes.length){
+                    oAfterLoadNode(arrNodeRes);
+                }
+            });
         };
+
 
         var _addNodeSelectStyle = function(oScene, oNode, oMesh4Node, oGeometry){
             if(oNode.params.isSelect){
