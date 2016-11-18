@@ -58,9 +58,11 @@
             //1.initCache
             self.DB.initCache(arrNodes, arrLinks);
 
-            var oLight = self.m_oScene.children[0];
+            var oLight1 = self.m_oScene.children[0];
+            var oLight2 = self.m_oScene.children[1];
             self.m_oScene.children = [];
-            self.m_oScene.children[0] = oLight;
+            self.m_oScene.children.push(oLight1);
+            self.m_oScene.children.push(oLight2);
 
             //1.drawNode
             m_oCTopoNode.drawNode(self.m_oScene, self.m_oDicImg, arrNodes, function(arrMeshNodes){
